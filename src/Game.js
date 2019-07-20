@@ -44,7 +44,7 @@ class Game extends React.Component {
     render() {
         return (
             <div>
-                <Carousel selectedItem={this.props.index}  width="40vh" centerSlidePercentage={80} showStatus={false} showThumbs={false} onChange={(index, e) => {
+                <Carousel selectedItem={this.props.index}  useKeyboardArrows={true} width="40vh" centerSlidePercentage={80} showStatus={false} showThumbs={false} onChange={(index, e) => {
                     this.props.indexHandler(index);
                 }}>
                     {this.movies}

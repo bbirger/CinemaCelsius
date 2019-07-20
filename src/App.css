@@ -30,7 +30,10 @@
   max-height: 20%;
   width:auto;
 }
-
+.portrait {
+  max-height: 60vh;
+  width:auto;
+}
 #back-button{
   position: absolute;
   left: 5%;

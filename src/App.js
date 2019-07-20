@@ -20,7 +20,7 @@ class App extends React.Component {
     this.allMovies = reviews.title; //Read all titles
     this.movies =  new Array(moviesInGame).fill(0).map(this.getRandomIndex);
     this.titles = this.movies.map(x => this.allMovies[x])
-    this.state = { view: 'show_game' ,
+    this.state = { view: 'show_result' ,
                   allRated:false,
                   temperature:new Array(moviesInGame).fill(-1),
                   currentIndex: 0,
@@ -35,7 +35,7 @@ class App extends React.Component {
   }
 
   getRandomIndex(){
-    return Math.floor(Math.random()*reviews.title.length) // Magic number is magic
+    return 0;//Math.floor(Math.random()*reviews.title.length) 
   }
 
   handleNextClick() {
@@ -77,7 +77,7 @@ class App extends React.Component {
     let next;
 
     if (view == "show_result") {
-      component = <Result />;
+      component = <Result temperatures={this.state.temperature} movies={this.movies}/>;
       back = <button id='back-button'  ><FaArrowLeft className="button" onClick={this.handleBackClick} /></button>
     } else if (view == "show_game") {
       component = <Game movies={this.movies} titles={this.titles} temperatureHandler = {this.handleTemperature} indexHandler = {this.handleIndex} index={this.state.currentIndex} temperature={this.state.temperature[this.state.currentIndex]}/>
