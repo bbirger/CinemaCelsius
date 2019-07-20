@@ -1,19 +1,28 @@
 import React from 'react';
 import Slider from 'react-input-slider';
 
+import Posters from './index';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
-
+import celsius_logo from './resources/0.jpg';
 class Game extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { temperature: 50 };
         this.getTemperature = this.getTemperature.bind(this);
+        this.movies = props.movies.map((e, i) => {
+            console.log(i)
+            return <div key={i}>
+                <img src={Posters[e]} />
+                <p className="legend">{props.titles[i]}</p>
+            </div>;
+        })
+
     }
 
     getTemperature() {
-        const temp = this.state.temperature;
+        const temp = this.props.temperature;
         let temperature = " " + temp + "°C "
+        // TODO: bucket and use a map for emoji
         if (temp > 80) {
             temperature += "🔥";
         } else if (temp > 70) {
@@ -32,34 +41,23 @@ class Game extends React.Component {
         return temperature;
     }
 
-
-
     render() {
-        //Key: c73e5eb
-        const slickSliderSettings = {
-            dots: true,
-            infinite: false,
-            slidesToShow: 1,
-            slidesToScroll: 1
-        };
         return (
             <div>
-                <Carousel centerSlidePercentage= {80} showThumbs={false}>
-                <div>
-                    <img src="https://m.media-amazon.com/images/M/MV5BMTExMzU0ODcxNDheQTJeQWpwZ15BbWU4MDE1OTI4MzAy._V1_UX182_CR0,0,182,268_AL_.jpg" />
-                    <p className="legend">Legend 1</p>
-                </div><div>
-                    <img src="https://m.media-amazon.com/images/M/MV5BMTExMzU0ODcxNDheQTJeQWpwZ15BbWU4MDE1OTI4MzAy._V1_UX182_CR0,0,182,268_AL_.jpg" />
-                    <p className="legend">Legend 1</p>
-                </div>
+                <Carousel selectedItem={this.props.index}  width="40vh" centerSlidePercentage={80} showStatus={false} showThumbs={false} onChange={(index, e) => {
+                    this.props.indexHandler(index);
+                }}>
+                    {this.movies}
                 </Carousel>
                 <Slider
                     axis="x"
                     xstep={1}
                     xmin={0}
                     xmax={100}
-                    x={this.state.temperature}
-                    onChange={({ x }) => this.setState({ temperature: parseInt(x) })}
+                    x={this.props.temperature}
+                    onChange={({ x }) => {
+                        this.props.temperatureHandler(x);
+                    }}
                 />
                 <div>{this.getTemperature()}</div>
             </div>
