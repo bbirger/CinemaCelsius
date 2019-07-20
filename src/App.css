@@ -9,25 +9,69 @@
 }
 
 .App-header {
-  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+#social-media {
+  position: relative;
+  min-height: 60px;
+  min-width: 230px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.social-media-content {
+  max-height: 20%;
+  width:auto;
+}
+
+#back-button{
+  position: absolute;
+  left: 5%;
+  top: 16%;
+  padding: 0;
+  border: none;
+  font-size: 40px;
+  background: none;
+  opacity: 0.3;
+  filter: alpha(opacity=50);
+}
+
+#back-button:hover{
+  padding: 0;
+  border: none;
+  background: none;
+  opacity: 0.7;
+  filter: alpha(opacity=50);
+}
+
+.butn {
+  background: #E27C2C;
+  background-image: -webkit-linear-gradient(top, #E27C2C, #F6DE72);
+  background-image: -moz-linear-gradient(top, #E27C2C, #F6DE72);
+  background-image: -ms-linear-gradient(top, #E27C2C, #F6DE72);
+  background-image: -o-linear-gradient(top, #E27C2C, #F6DE72);
+  background-image: linear-gradient(to bottom, #E27C2C, #F6DE72);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  -webkit-box-shadow: 0px 1px 3px #666666;
+  -moz-box-shadow: 0px 1px 3px #666666;
+  box-shadow: 0px 1px 3px #666666;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 14px;
+  padding: 7px 10px 7px 10px;
+  text-decoration: none;
+}
+
+.butn:hover {
+  background: #E27C2C;
+  text-decoration: none;
 }

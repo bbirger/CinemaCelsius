@@ -3,9 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@brainhubeu/react-carousel": "^1.10.17",
     "react": "^16.8.6",
+    "react-awesome-button": "^6.1.2",
     "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1"
+    "react-icons": "^3.7.0",
+    "react-image-gallery": "^0.8.18",
+    "react-input-slider": "^5.0.15",
+    "react-responsive-carousel": "^3.1.49",
+    "react-scripts": "3.0.1",
+    "react-simple-image-slider": "^1.0.2",
+    "react-slick": "^0.24.0",
+    "slick-carousel": "^1.8.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -27,5 +36,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "react-alice-carousel": "^1.15.2",
+    "react-social-icons": "^4.1.0"
   }
 }
