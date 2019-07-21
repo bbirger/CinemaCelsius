@@ -18,12 +18,12 @@
 }
 
 #social-media {
-  position: relative;
+  position: absolute;
   min-height: 60px;
   min-width: 230px;
   position: absolute;
-  bottom: 0;
-  right: 0;
+  top: 4%;
+  right: 0%;
 }
 
 .social-media-content {
@@ -37,7 +37,7 @@
 #back-button{
   position: absolute;
   left: 5%;
-  top: 16%;
+  top: 5%;
   padding: 0;
   border: none;
   font-size: 40px;
