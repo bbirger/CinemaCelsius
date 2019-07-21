@@ -17,8 +17,8 @@ function similarity(A, B) {
     }
     mA = Math.sqrt(mA);
     mB = Math.sqrt(mB);
-    if(mA == 0 || mB == 0)
-        return mA==mB ? 1 : 0;
+    if(mA === 0 || mB === 0)
+        return mA===mB ? 1 : 0;
 
     return dotProduct / (mA * mB);
 }
@@ -38,8 +38,8 @@ class Result extends React.Component {
     render() {
         return (
             <div>
-            <img className="portrait" src={this.images[this.most_similair]}></img>
-            <p>Woho du blev en {this.names[this.most_similair]}🍿</p>
+            <img alt='portrait' className="portrait" src={this.images[this.most_similair]}></img>
+            <p>Woho du blev en {this.names[this.most_similair]}<span role="img" aria-label="Popcorn">🍿</span></p>
             </div>
         );
     }

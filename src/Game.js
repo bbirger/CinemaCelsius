@@ -4,7 +4,7 @@ import Slider from 'react-input-slider';
 import Posters from './index';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
-import celsius_logo from './resources/0.jpg';
+
 class Game extends React.Component {
     constructor(props) {
         super(props);
@@ -12,11 +12,11 @@ class Game extends React.Component {
         this.movies = props.movies.map((e, i) => {
             console.log(i)
             return <div key={i}>
-                <img src={Posters[e]} />
+                <img src={Posters[e]} alt='movie'/>
                 <p className="legend">{props.titles[i]}</p>
             </div>;
         })
-
+        
     }
 
     getTemperature() {
@@ -59,7 +59,7 @@ class Game extends React.Component {
                         this.props.temperatureHandler(x);
                     }}
                 />
-                <div>{this.getTemperature()}</div>
+                <div><span role="img" aria-label="Temperature">{this.getTemperature()}</span></div>
             </div>
 
         );

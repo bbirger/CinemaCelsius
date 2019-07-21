@@ -12,7 +12,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     const urls = ["https://open.spotify.com/show/2W6PLd6v21gyqaTZzfuMn4", "https://www.instagram.com/cinemacelsius/",
-      "https://www.facebook.com/CinemaCelsius/", , "https://www.filmtopp.se/cinema-celsius-filmpodd/"]
+      "https://www.facebook.com/CinemaCelsius/",  "https://www.filmtopp.se/cinema-celsius-filmpodd/"]
     this.socialIcons = urls.map((url) =>
       <SocialIcon key={url} className="social-media-content" url={url} />
     );
@@ -49,13 +49,15 @@ class App extends React.Component {
     let movies;
     do {
       movies = new Array(this.moviesInGame).fill(0).map(this.getRandomIndex);
-    } while (movies.length != new Set(movies).size);
+    } while (movies.length !== new Set(movies).size);
     const titles = movies.map(x => this.allMovies[x]);
 
     this.setState(state => ({
       temperature:new Array(this.moviesInGame).fill(-1),
       movies: movies,
       titles: titles,
+      allRated: false,
+      currentIndex: 0,
       reset:false
     }));
   }
@@ -67,7 +69,7 @@ class App extends React.Component {
   handleNextClick() {
     this.setState(state => ({
       view: this.statePropergation[state.view],
-      reset: this.statePropergation[state.view] == 'show_game'
+      reset: this.statePropergation[state.view] === 'show_game'
     }));
   }
 
@@ -101,23 +103,24 @@ class App extends React.Component {
     if(this.state.reset)
       this.resetGame()
 
+      
     const view = this.state.view;
 
     let component;
     let back;
     let next;
 
-    if (view == "show_result") {
+    if (view === "show_result") {
       component = <Result temperatures={this.state.temperature} movies={this.state.movies}/>;
       back = <button id='back-button'  ><FaArrowLeft className="button" onClick={this.handleBackClick} /></button>
-      next = <button className="butn" onClick={this.handleNextClick} variant="outline-primary">Igen 🎉</button>
-    } else if (view == "show_game") {
+      next = <button className="butn" onClick={this.handleNextClick} variant="outline-primary">Igen <span role="img" aria-label="Woho">🎉</span></button>
+    } else if (view === "show_game") {
       component = <Game movies={this.state.movies} titles={this.state.titles} temperatureHandler = {this.handleTemperature} indexHandler = {this.handleIndex} index={this.state.currentIndex} temperature={this.state.temperature[this.state.currentIndex]}/>
       next = <button className="butn" disabled={!this.state.allRated} onClick={this.handleNextClick} variant="outline-primary">Visa resultat</button>
       back = <button id='back-button'  ><FaArrowLeft className="button" onClick={this.handleBackClick} /></button>
     } else {
       component = <Welcome />
-      next = <button className="butn" onClick={this.handleNextClick} variant="outline-primary">Spela 🍿</button>
+      next = <button className="butn" onClick={this.handleNextClick} variant="outline-primary">Spela <span role="img" aria-label="Popcorn">🍿</span></button>
     }
     return (
       <div className="App">
