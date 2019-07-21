@@ -16,37 +16,65 @@ class App extends React.Component {
     this.socialIcons = urls.map((url) =>
       <SocialIcon key={url} className="social-media-content" url={url} />
     );
-    const moviesInGame = 5;
+    this.moviesInGame = 5;
     this.allMovies = reviews.title; //Read all titles
-    this.movies =  new Array(moviesInGame).fill(0).map(this.getRandomIndex);
-    this.titles = this.movies.map(x => this.allMovies[x])
-    this.state = { view: 'show_result' ,
-                  allRated:false,
-                  temperature:new Array(moviesInGame).fill(-1),
-                  currentIndex: 0,
-                  indexMap: this.movies,
-                  consumedMovies: this.movies
+    this.state = {
+      view: 'welcome',
+      allRated: false,
+      movies: new Array(this.moviesInGame).fill(-1),
+      titles: new Array(this.moviesInGame).fill(-1),
+      temperature: new Array(this.moviesInGame).fill(-1),
+      currentIndex: 0,
+      reset: true
     };
 
     this.handleNextClick = this.handleNextClick.bind(this);
     this.handleBackClick = this.handleBackClick.bind(this);
     this.handleTemperature = this.handleTemperature.bind(this);
     this.handleIndex = this.handleIndex.bind(this);
+    this.resetGame = this.resetGame.bind(this);
+    this.statePropergation = {
+      'show_result':'show_game',
+      'welcome':'show_game',
+      'show_game':'show_result'
+    }
+    this.backwardStatePropergation = {
+      'show_result':'show_game',
+      'welcome':'welcome',
+      'show_game':'welcome'
+    }
+  }
+
+  resetGame(){
+    let movies;
+    do {
+      movies = new Array(this.moviesInGame).fill(0).map(this.getRandomIndex);
+    } while (movies.length != new Set(movies).size);
+    const titles = movies.map(x => this.allMovies[x]);
+
+    this.setState(state => ({
+      temperature:new Array(this.moviesInGame).fill(-1),
+      movies: movies,
+      titles: titles,
+      reset:false
+    }));
   }
 
   getRandomIndex(){
-    return 0;//Math.floor(Math.random()*reviews.title.length) 
+    return Math.floor(Math.random()*reviews.title.length) 
   }
 
   handleNextClick() {
     this.setState(state => ({
-      view: 'show_result'
+      view: this.statePropergation[state.view],
+      reset: this.statePropergation[state.view] == 'show_game'
     }));
   }
 
   handleBackClick() {
+    
     this.setState(state => ({
-      view: 'Welcome'
+      view: this.backwardStatePropergation[state.view],
     }));
   }
 
@@ -70,6 +98,9 @@ class App extends React.Component {
   }
 
   render() {
+    if(this.state.reset)
+      this.resetGame()
+
     const view = this.state.view;
 
     let component;
@@ -77,15 +108,16 @@ class App extends React.Component {
     let next;
 
     if (view == "show_result") {
-      component = <Result temperatures={this.state.temperature} movies={this.movies}/>;
+      component = <Result temperatures={this.state.temperature} movies={this.state.movies}/>;
       back = <button id='back-button'  ><FaArrowLeft className="button" onClick={this.handleBackClick} /></button>
+      next = <button className="butn" onClick={this.handleNextClick} variant="outline-primary">Igen 🎉</button>
     } else if (view == "show_game") {
-      component = <Game movies={this.movies} titles={this.titles} temperatureHandler = {this.handleTemperature} indexHandler = {this.handleIndex} index={this.state.currentIndex} temperature={this.state.temperature[this.state.currentIndex]}/>
-      next = <button className="butn" disabled={!this.state.allRated} onClick={this.handleNextClick} variant="outline-primary">Show results</button>
+      component = <Game movies={this.state.movies} titles={this.state.titles} temperatureHandler = {this.handleTemperature} indexHandler = {this.handleIndex} index={this.state.currentIndex} temperature={this.state.temperature[this.state.currentIndex]}/>
+      next = <button className="butn" disabled={!this.state.allRated} onClick={this.handleNextClick} variant="outline-primary">Visa resultat</button>
       back = <button id='back-button'  ><FaArrowLeft className="button" onClick={this.handleBackClick} /></button>
     } else {
       component = <Welcome />
-      next = <button className="butn" onClick={this.handleNextClick} variant="outline-primary">Press to play 🍿</button>
+      next = <button className="butn" onClick={this.handleNextClick} variant="outline-primary">Spela 🍿</button>
     }
     return (
       <div className="App">
