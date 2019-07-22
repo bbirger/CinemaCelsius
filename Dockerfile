@@ -1,18 +1,17 @@
+FROM node:latest
 
-FROM node:alpine
+RUN npm install -g serve
 
-# Create app directory
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+RUN mkdir -p /app
+WORKDIR /app
 
-# Install app dependencies
-COPY package.json /usr/src/app/
+# build dependencies first
+COPY package.json package.json
 RUN npm install
 
-# Bundle app source
-COPY . /usr/src/app
-RUN npm run build
+# copy remaining source code
+COPY . .
+RUN npm run build --production
 
-EXPOSE 3000
-
-CMD [ "npm", "start"]
+EXPOSE 5000
+CMD serve -s build
