@@ -24,14 +24,12 @@ class App extends React.Component {
       movies: new Array(this.moviesInGame).fill(-1),
       titles: new Array(this.moviesInGame).fill(-1),
       temperature: new Array(this.moviesInGame).fill(-1),
-      currentIndex: 0,
       reset: true
     };
 
     this.handleNextClick = this.handleNextClick.bind(this);
     this.handleBackClick = this.handleBackClick.bind(this);
     this.handleTemperature = this.handleTemperature.bind(this);
-    this.handleIndex = this.handleIndex.bind(this);
     this.resetGame = this.resetGame.bind(this);
     this.statePropergation = {
       'show_result':'show_game',
@@ -57,7 +55,6 @@ class App extends React.Component {
       movies: movies,
       titles: titles,
       allRated: false,
-      currentIndex: 0,
       reset:false
     }));
   }
@@ -80,10 +77,10 @@ class App extends React.Component {
     }));
   }
 
-  handleTemperature(new_temp) {
+  handleTemperature(new_temp, index) {
     this.setState(state => {
       const temperature = state.temperature;
-      temperature[state.currentIndex] = new_temp
+      temperature[index] = new_temp
       const allRated = !temperature.includes(-1)
 
       return {
@@ -93,11 +90,7 @@ class App extends React.Component {
     });
   }
 
-  handleIndex(index) {
-    this.setState(state => ({
-      currentIndex: index
-    }));
-  }
+
 
   render() {
     if(this.state.reset)
@@ -115,8 +108,9 @@ class App extends React.Component {
       back = <button id='back-button'  ><FaArrowLeft className="button" onClick={this.handleBackClick} /></button>
       next = <button className="butn" onClick={this.handleNextClick} variant="outline-primary">Igen <span role="img" aria-label="Woho">🎉</span></button>
     } else if (view === "show_game") {
-      component = <Game movies={this.state.movies} titles={this.state.titles} temperatureHandler = {this.handleTemperature} indexHandler = {this.handleIndex} index={this.state.currentIndex} temperature={this.state.temperature[this.state.currentIndex]}/>
       next = <button className="butn" disabled={!this.state.allRated} onClick={this.handleNextClick} variant="outline-primary">Visa resultat</button>
+      component = <Game movies={this.state.movies} titles={this.state.titles} temperatureHandler = {this.handleTemperature} temperatures={this.state.temperature}/>
+
       back = <button id='back-button'  ><FaArrowLeft className="button" onClick={this.handleBackClick} /></button>
     } else {
       component = <Welcome />

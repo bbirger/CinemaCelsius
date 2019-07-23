@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@brainhubeu/react-carousel": "^1.10.17",
+    "enzyme": "^3.10.0",
     "react": "^16.8.6",
     "react-awesome-button": "^6.1.2",
     "react-dom": "^16.8.6",

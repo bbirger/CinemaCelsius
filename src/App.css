@@ -72,6 +72,8 @@
   font-size: 14px;
   padding: 7px 10px 7px 10px;
   text-decoration: none;
+  margin-top: 10px;
+  margin-left: 10px;
 }
 
 .butn:hover {
