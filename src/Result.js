@@ -18,9 +18,16 @@ function similarity(A, B) {
     mA = Math.sqrt(mA);
     mB = Math.sqrt(mB);
     if(mA === 0 || mB === 0)
-        return mA===mB ? 1 : 0;
+        return 0;
 
-    return dotProduct / (mA * mB);
+    const cosSim = dotProduct / (mA * mB);
+    console.log(mA)
+    console.log(mB)
+    console.log(dotProduct)
+    if(Number.isNaN(cosSim))
+        return 0
+    else
+        return cosSim
 }
 class Result extends React.Component {
     constructor(props) {
@@ -32,6 +39,8 @@ class Result extends React.Component {
         this.images = [matilda, sebastian, johan]
         const pod_reviews = celsiuses.map(r => props.movies.map(x => r[x]));
         const similarities = pod_reviews.map(x => similarity(props.temperatures, x));
+
+        console.log(pod_reviews.map(x => similarity([0,0,0,0,0], x)))
         this.most_similair = similarities.indexOf(Math.max(...similarities))
     }    
 

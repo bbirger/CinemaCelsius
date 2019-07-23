@@ -108,7 +108,7 @@ class App extends React.Component {
       back = <button id='back-button'  ><FaArrowLeft className="button" onClick={this.handleBackClick} /></button>
       next = <button className="butn" onClick={this.handleNextClick} variant="outline-primary">Igen <span role="img" aria-label="Woho">🎉</span></button>
     } else if (view === "show_game") {
-      next = <button className="butn" disabled={!this.state.allRated} onClick={this.handleNextClick} variant="outline-primary">Visa resultat</button>
+      next =this.state.allRated &&  <button className="butn" disabled={!this.state.allRated} onClick={this.handleNextClick} variant="outline-primary">Visa resultat</button>
       component = <Game movies={this.state.movies} titles={this.state.titles} temperatureHandler = {this.handleTemperature} temperatures={this.state.temperature}/>
 
       back = <button id='back-button'  ><FaArrowLeft className="button" onClick={this.handleBackClick} /></button>
