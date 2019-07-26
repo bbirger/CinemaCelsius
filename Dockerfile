@@ -1,17 +1,20 @@
-FROM node:latest
-
-RUN npm install -g serve
-
-RUN mkdir -p /app
-WORKDIR /app
-
-# build dependencies first
-COPY package.json package.json
-RUN npm install
-
-# copy remaining source code
-COPY . .
-RUN npm run build --production
-
-EXPOSE 5000
-CMD serve -s build
+FROM alpine
+EXPOSE 80
+ADD config/default.conf /etc/nginx/conf.d/default.conf
+COPY . /var/www/localhost/htdocs
+RUN apk add nginx && \
+    mkdir /run/nginx && \
+    mkdir /certs && \
+    apk add nodejs && \
+    apk add npm && \
+    cd /var/www/localhost/htdocs && \
+    npm install && \
+    npm run build && \
+    apk del nodejs && \
+    apk del npm && \
+    mv /var/www/localhost/htdocs/build /var/www/localhost && \
+    cd /var/www/localhost/htdocs && \
+    rm -rf * && \
+    mv /var/www/localhost/build /var/www/localhost/htdocs;
+CMD ["/bin/sh", "-c", "exec nginx -g 'daemon off;';"]
+WORKDIR /var/www/localhost/htdocs
