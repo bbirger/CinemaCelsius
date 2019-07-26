@@ -66,7 +66,7 @@ class Game extends React.Component {
 
         return (
             <div>
-                <Carousel selectedItem={this.state.currentSlide} onChange={this.updateCurrentSlide} width="40vh" centerSlidePercentage={80} showStatus={false} showThumbs={false} showArrows={false}>                    
+                <Carousel selectedItem={this.state.currentSlide} onChange={this.updateCurrentSlide} width="40vh" centerSlidePercentage={65} showStatus={false} showThumbs={false} showArrows={false}>                    
                     {this.movies}
                 </Carousel>
 
