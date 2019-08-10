@@ -66,6 +66,8 @@ class Game extends React.Component {
     }
 
     render() {
+        const x = (this.props.temperatures[this.state.currentSlide] === undefined) ? -1 : this.props.temperatures[this.state.currentSlide];
+            
         let results;
         if(this.props.enoughRated)
             results = <button onClick={this.props.result} className="butn" variant="outline-primary">Visa resultat</button>;
@@ -80,7 +82,7 @@ class Game extends React.Component {
                     xstep={1}
                     xmin={0}
                     xmax={100}
-                    x={this.props.temperatures[this.state.currentSlide]}
+                    x={x}
                     onChange={({ x }) => {
                         this.props.temperatureHandler(x,this.state.currentSlide);
                     }}
