@@ -24,7 +24,10 @@ class Game extends React.Component {
         const temp = this.props.temperatures[this.state.currentSlide];
         let temperature = " " + temp + "°C "
         // TODO: bucket and use a map for emoji
-        if (temp > 80) {
+        
+        if (temp == undefined){
+            return '🎞🌡🤔';
+        } else if (temp > 80) {
             temperature += "🔥";
         } else if (temp > 70) {
             temperature += "🙌";
@@ -63,10 +66,12 @@ class Game extends React.Component {
     }
 
     render() {
-
+        let results;
+        if(this.props.enoughRated)
+            results = <button onClick={this.props.result} className="butn" variant="outline-primary">Visa resultat</button>;
         return (
             <div>
-                <Carousel selectedItem={this.state.currentSlide} onChange={this.updateCurrentSlide} width="40vh" centerSlidePercentage={65} showStatus={false} showThumbs={false} showArrows={false}>                    
+                <Carousel selectedItem={this.state.currentSlide} onChange={this.updateCurrentSlide} width="40vh" centerSlidePercentage={65} showIndicators={false} showStatus={false} showThumbs={false} showArrows={false}>                    
                     {this.movies}
                 </Carousel>
 
@@ -85,6 +90,7 @@ class Game extends React.Component {
                 </div>                 
                     <button onClick={this.prev} className="butn" disabled={this.state.currentSlide === 0} variant="outline-primary">Föregående</button>
                     <button onClick={this.next} className="butn" disabled={this.state.currentSlide === this.movies.length-1} variant="outline-primary">Nästa</button>
+                    {results}
             </div>
         );
     }

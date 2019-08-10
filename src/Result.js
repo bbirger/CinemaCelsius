@@ -29,11 +29,16 @@ function similarity(A, B) {
 class Result extends React.Component {
     constructor(props) {
         super(props);
+
         const celsiuses = [reviews.matilda, reviews.sebastian, reviews.johan];
         this.names = ['Matilda','Sebastian', 'Johan']
         this.images = [matilda, sebastian, johan]
-        const pod_reviews = celsiuses.map(r => props.movies.map(x => r[x]));
-        const similarities = pod_reviews.map(x => similarity(props.temperatures, x));
+
+        const movies = Object.keys(props.temperatures);
+        const temperatures = movies.map(movie => props.temperatures[movie]);
+
+        const pod_reviews = celsiuses.map(r => movies.map(x => r[x]));
+        const similarities = pod_reviews.map(x => similarity(temperatures, x));
         this.most_similair = similarities.indexOf(Math.max(...similarities))
     }    
 
