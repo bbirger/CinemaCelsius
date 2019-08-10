@@ -144,7 +144,7 @@ class App extends React.Component {
               </div>
             </a></div>
         </header>
-        <iframe frameBorder="0" height="200" scrolling="no" src="https://embed.radiopublic.com/e?if=cinema-celsius-GZd9pJ" width="100%"></iframe>
+        <iframe title="embedded_player" frameBorder="0" height="200" scrolling="no" src="https://embed.radiopublic.com/e?if=cinema-celsius-GZd9pJ" width="100%"></iframe>
       </div>
     );
   }

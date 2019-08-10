@@ -25,7 +25,7 @@ class Game extends React.Component {
         let temperature = " " + temp + "°C "
         // TODO: bucket and use a map for emoji
         
-        if (temp == undefined){
+        if (temp === undefined){
             return '🎞🌡🤔';
         } else if (temp > 80) {
             temperature += "🔥";
